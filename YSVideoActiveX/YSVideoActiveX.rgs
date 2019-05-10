@@ -1,0 +1,11 @@
+HKCR
+{
+	NoRemove AppID
+	{
+		'%APPID%' = s 'YSVideoActiveX'
+				'YSVideoActiveX.DLL'
+				{
+			val AppID = s '%APPID%'
+		}
+	}
+}

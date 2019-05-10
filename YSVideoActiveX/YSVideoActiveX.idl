@@ -1,0 +1,95 @@
+// YSVideoActiveX.idl : ActiveX 控件项目的类型库源。
+
+// 此文件将由 MIDL 编译器工具处理以
+// 产生类型库(YSVideoActiveX.tlb)，该类型库将成为
+// YSVideoActiveX.ocx.
+
+#include <olectl.h>
+#include <idispids.h>
+
+import "ocidl.idl";
+import "oaidl.idl";
+[ uuid(1BBBEDA3-0F61-4070-8DCD-5C0B18D770E6), version(1.0),
+  control ]
+library YSVideoActiveXLib
+{
+	importlib(STDOLE_TLB);
+
+	//  CYSVideoActiveXCtrl 的主调度接口
+	[ 
+		uuid(A8501FB9-7F99-43F7-993D-81002B14E070)	
+	]
+	dispinterface _DYSVideoActiveX
+	{
+		properties:
+		methods:
+
+			[id(DISPID_ABOUTBOX)] void AboutBox();
+			[id(1)] LONG InitLib(BSTR strAppKey);
+			[id(2)] LONG FiniLib(void);
+			[id(3)] BSTR AllocSession(void);
+			[id(4)] LONG FreeSession(BSTR strSession);
+			[id(5)] LONG StartRealPlay(BSTR strSessionId, LONG WindowNumber, BSTR strCameraId, BSTR strAccessToken, LONG iVideoLevel, BSTR strSafeKey, BSTR strAppKey);
+			[id(6)] LONG StopRealPlay(BSTR strSessionId);
+			[id(7)] LONG StartPlayBack(BSTR strSessionId, LONG WindowNumber, BSTR strCameraId, BSTR strAccessToken, BSTR strSafeKey, BSTR strStartTime, BSTR strStopTime, BSTR strAppKey);
+			[id(8)] LONG PlayBackResume(BSTR strSessionId);
+			[id(9)] LONG PlayBackPause(BSTR strSessionId);
+			[id(10)] LONG StopPlayBack(BSTR strSessionId);
+			[id(11)] LONG StartSearch(BSTR strSessionId, BSTR strCameraId, BSTR strAccessToken, BSTR strStartTime, BSTR strStopTime);
+			[id(12)] BSTR GetOSDTime(BSTR strSessionId);
+			[id(13)] LONG OpenSound(BSTR strSessionId);
+			[id(14)] LONG CloseSound(BSTR strSessionId);
+			[id(15)] USHORT GetVolume(BSTR strSessionId);
+			[id(16)] LONG CapturePicture(BSTR strSessionId, BSTR strFileName);
+			[id(17)] BSTR Mid_Login();
+			[id(18)] LONG Mid_Device_Add(BSTR szAccessToken);
+			[id(19)] LONG Mid_Device_Oper(BSTR szAccessToken, BSTR szDeviceId);
+			[id(20)] BSTR Data_GetDevList(BSTR strAccessToken, LONG iPageStart, LONG iPageSize);
+			[id(21)] BSTR HttpSendWithWait(BSTR szUri, BSTR szHeaderParam, BSTR szBody);
+			[id(22)] void ShowStyle(LONG nStyle);
+			[id(23)] LONG SetVolume(BSTR strSessionId, USHORT uVolume);
+			[id(24)] BSTR Data_GetAlarmList(BSTR strAccessToken, BSTR strCameraId, BSTR strStartTime, BSTR strEndTime, LONG iAlarmType, LONG iStatus, LONG iPageStart, LONG iPageSize);
+			[id(25)] LONG Data_Free(LONG* pBuf);
+			[id(26)] LONG Alarm_StartRecv(BSTR strAccessToken);
+			[id(27)] LONG Alarm_StopRecv(void);
+			[id(28)] LONG PTZCtrl(BSTR strSessionId, BSTR strAccessToken, BSTR strCameraId, LONG enCommand, LONG enAction, LONG iSpeed);
+			[id(29)] LONG Alarm_SetMsgCallBack(void);
+			[id(30)] LONG DevDefence(BSTR strSessionId, BSTR strAccessToken, BSTR strCameraId, LONG enType, LONG enStatus, LONG enActor);
+			[id(31)] LONG StartVoiceTalk(BSTR strSessionId, BSTR strAccessToken, BSTR strCameraId);
+			[id(32)] LONG StopVoiceTalk(BSTR strSessionId);
+			[id(33)] LONG Data_DeleteDevice(BSTR szAccessToken, BSTR szDeviceId);
+			[id(34)] LONG UpdateCameraInfoToLocal(BSTR szCameraId, BSTR szAccessTokent);
+			[id(35)] BSTR Data_GetDeviceInfo(BSTR szAccessToken, BSTR szDeviceSerial);
+			[id(36)] LONG Data_SetAlarmRead(BSTR szAccessToken, BSTR szAlarmId);
+			
+			[id(37)] LONG GetFocusWnd(void);
+			[id(38)] void ResetWindow(USHORT nWindowNumber);
+	};
+
+	//  CYSVideoActiveXCtrl 的事件调度接口
+
+	[ 
+		uuid(B4C1259F-078E-4C2C-AD45-9FC35BD7B78C)	
+	]
+	dispinterface _DYSVideoActiveXEvents
+	{
+		properties:
+			//  事件接口没有任何属性
+
+		methods:
+			[id(1)] void OpenSDK_MessageTold(BSTR szSessionId, ULONG iMsgType, ULONG iErrorCode, BSTR pMessageInfo);
+			[id(2)] void Alarm_Message(BSTR szCameraId, BSTR szContent, BSTR szAlarmTime);
+			[id(3)] void Publish_Message(BSTR szContent);
+	};
+
+	//  CYSVideoActiveXCtrl 的类信息
+	[
+		uuid(E4082E53-370D-49F6-8DFD-900EFD60AA34)
+	]
+	coclass YSVideoActiveX
+	{
+		[default] dispinterface _DYSVideoActiveX;
+		[default, source] dispinterface _DYSVideoActiveXEvents;
+	};
+
+};
